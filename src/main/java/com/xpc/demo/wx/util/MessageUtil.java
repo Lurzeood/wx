@@ -58,6 +58,8 @@ public class MessageUtil {
      */
     public static final String REQ_MESSAGE_TYPE_VOICE = "voice";
 
+    public static final String REQ_MESSAGE_TYPE_VIDEO = "video";
+
     /**
      * 请求消息类型：推送
      */
