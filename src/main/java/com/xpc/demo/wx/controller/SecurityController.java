@@ -1,6 +1,8 @@
 package com.xpc.demo.wx.controller;
 
+import com.xpc.demo.wx.util.EventDispatcher;
 import com.xpc.demo.wx.util.MessageUtil;
+import com.xpc.demo.wx.util.MsgDispatcher;
 import com.xpc.demo.wx.util.SignUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.Map;
 
 @Controller
@@ -50,7 +54,18 @@ public class SecurityController {
 
         try {
             Map<String, String> map = MessageUtil.parseXml(request);
-            logger.info("get the message : {}",map.get("Content"));
+            String msgtype = map.get("MsgType");
+            if (MessageUtil.REQ_MESSAGE_TYPE_EVENT.equals(msgtype)){
+                MsgDispatcher.processMessage(map);
+
+            }else {
+                logger.info("get the message");
+                response.setCharacterEncoding("UTF-8");
+                String respXML = MsgDispatcher.processMessage(map);
+                PrintWriter out = response.getWriter();
+                out.println(respXML);
+                out.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

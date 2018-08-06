@@ -1,6 +1,6 @@
-package com.xpc.demo.wx.entity;
+package com.xpc.demo.wx.sendentity;
 
-public class LinkMessage extends BaseMessage {
+public class Article extends BaseMessage {
 
     private String Title;
 
@@ -30,5 +30,5 @@ public class LinkMessage extends BaseMessage {
 
     public void setUrl(String url) {
         Url = url;
-    };
+    }
 }

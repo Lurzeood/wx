@@ -5,6 +5,7 @@ import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
+import com.xpc.demo.wx.sendentity.*;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -34,6 +35,21 @@ public class MessageUtil {
     public static final String RESP_MESSAGE_TYPE_NEWS = "news";
 
     /**
+     * 返回消息类型：图片
+     */
+    public static final String RESP_MESSAGE_TYPE_Image = "image";
+
+    /**
+     * 返回消息类型：语音
+     */
+    public static final String RESP_MESSAGE_TYPE_Voice = "voice";
+
+    /**
+     * 返回消息类型：视频
+     */
+    public static final String RESP_MESSAGE_TYPE_Video = "video";
+
+    /**
      * 请求消息类型：文本
      */
     public static final String REQ_MESSAGE_TYPE_TEXT = "text";
@@ -59,6 +75,11 @@ public class MessageUtil {
     public static final String REQ_MESSAGE_TYPE_VOICE = "voice";
 
     /**
+     * 请求消息类型：视频
+     */
+    public static final String REQ_MESSAGE_TYPE_VIDEO = "video";
+
+    /**
      * 请求消息类型：推送
      */
     public static final String REQ_MESSAGE_TYPE_EVENT = "event";
@@ -77,6 +98,21 @@ public class MessageUtil {
      * 事件类型：CLICK(自定义菜单点击事件)
      */
     public static final String EVENT_TYPE_CLICK = "CLICK";
+
+    /**
+     * 事件类型：VIEW(自定义菜单 URl 视图)
+     */
+    public static final String EVENT_TYPE_VIEW = "VIEW";
+
+    /**
+     * 事件类型：LOCATION(上报地理位置事件)
+     */
+    public static final String EVENT_TYPE_LOCATION = "LOCATION";
+
+    /**
+     * 事件类型：LOCATION(上报地理位置事件)
+     */
+    public static final String EVENT_TYPE_SCAN = "SCAN";
 
     /**
      * @Description: 解析微信发来的请求（XML）
@@ -110,6 +146,79 @@ public class MessageUtil {
         inputStream = null;
 
         return map;
+    }
+
+    /**
+     * @Description: 文本消息对象转换成 xml
+     * @param @param textMessage
+     * @param @return
+     * @author dapengniao
+     * @date 2016 年 3 月 8 日 下午 4:13:22
+     */
+    public static String textMessageToXml(TextMessage textMessage) {
+        xstream.alias("xml", textMessage.getClass());
+        return xstream.toXML(textMessage);
+    }
+
+    /**
+     * @Description: 图文消息对象转换成 xml
+     * @param @param newsMessage
+     * @param @return
+     * @author dapengniao
+     * @date 2016 年 3 月 8 日 下午 4:14:09
+     */
+    public static String newsMessageToXml(NewsMessage newsMessage) {
+        xstream.alias("xml", newsMessage.getClass());
+        xstream.alias("item", new Article().getClass());
+        return xstream.toXML(newsMessage);
+    }
+
+    /**
+     * @Description: 图片消息对象转换成 xml
+     * @param @param imageMessage
+     * @param @return
+     * @author dapengniao
+     * @date 2016 年 3 月 9 日 上午 9:25:51
+     */
+    public static String imageMessageToXml(ImageMessage imageMessage) {
+        xstream.alias("xml", imageMessage.getClass());
+        return xstream.toXML(imageMessage);
+    }
+
+    /**
+     * @Description: 语音消息对象转换成 xml
+     * @param @param voiceMessage
+     * @param @return
+     * @author dapengniao
+     * @date 2016 年 3 月 9 日 上午 9:27:26
+     */
+    public static String voiceMessageToXml(VoiceMessage voiceMessage) {
+        xstream.alias("xml", voiceMessage.getClass());
+        return xstream.toXML(voiceMessage);
+    }
+
+    /**
+     * @Description: 视频消息对象转换成 xml
+     * @param @param videoMessage
+     * @param @return
+     * @author dapengniao
+     * @date 2016 年 3 月 9 日 上午 9:31:09
+     */
+    public static String videoMessageToXml(VideoMessage videoMessage) {
+        xstream.alias("xml", videoMessage.getClass());
+        return xstream.toXML(videoMessage);
+    }
+
+    /**
+     * @Description: 音乐消息对象转换成 xml
+     * @param @param musicMessage
+     * @param @return
+     * @author dapengniao
+     * @date 2016 年 3 月 8 日 下午 4:13:36
+     */
+    public static String musicMessageToXml(MusicMessage musicMessage) {
+        xstream.alias("xml", musicMessage.getClass());
+        return xstream.toXML(musicMessage);
     }
 
     @SuppressWarnings("unused")

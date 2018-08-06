@@ -1,4 +1,4 @@
-package com.xpc.demo.wx.entity;
+package com.xpc.demo.wx.recventity;
 
 public class ImageMessage extends BaseMessage {
 
